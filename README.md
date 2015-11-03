@@ -74,7 +74,7 @@ action is present in the MSI.
 2. Use verbose logging to check for errors, etc:
 ```shell
 msiexec /i package.msi /l*v install.log
-```shell
+```
 
 License
 -------
