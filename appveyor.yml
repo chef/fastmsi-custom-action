@@ -26,7 +26,7 @@ deploy:
   provider: GitHub
   artifact: CustomActionFastMsi\bin
   auth_token:
-    secure: G+598xUH69Q0aWKWUU/Q2juXBusyRdrBSarvw+UALpJJPTvmv97LN4/qT+9I2ha3
+    secure: Fuf+0Vu0gan1h6l5WaH66HQm/OEF1O1HyeBr4zLqbQcNLkeNWuQun1g47O5yhYwj
   on:
     branch: master
     appveyor_repo_tag: true
