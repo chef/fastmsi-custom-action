@@ -19,12 +19,12 @@ clone_folder: c:\projects\CustomActionFastMsi
 
 artifacts:
   - path: CustomActionFastMsi\bin
-    name: Binaries
+    name: CustomActionFastMsi
     type: zip
 
 deploy:
   provider: GitHub
-  artifact: CustomActionFastMsi\bin
+  artifact: CustomActionFastMsi.zip
   auth_token:
     secure: Fuf+0Vu0gan1h6l5WaH66HQm/OEF1O1HyeBr4zLqbQcNLkeNWuQun1g47O5yhYwj
   on:
