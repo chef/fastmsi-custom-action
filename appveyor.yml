@@ -17,6 +17,11 @@ assembly_info:
 
 clone_folder: c:\projects\CustomActionFastMsi
 
+artifacts:
+  - path: CustomActionFastMsi\bin
+    name: Binaries
+    type: zip
+
 deploy:
   provider: GitHub
   artifact: CustomActionFastMsi\bin
