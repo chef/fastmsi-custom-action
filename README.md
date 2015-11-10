@@ -1,5 +1,6 @@
 Custom Action for Fast MSI
 ============================
+[![Build status](https://ci.appveyor.com/api/projects/status/6s8r7jita3oaks6c?svg=true)](https://ci.appveyor.com/project/chef/fastmsi-custom-action)
 
 This repository contains a WIX/MSI Custom Action that supports the Chef and
 ChefDK Omnibus 'FastMSI' packager for Windows.
