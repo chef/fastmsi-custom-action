@@ -1,0 +1,32 @@
+version: "{build}"
+
+os: Windows Server 2012
+
+platform:
+  - x86
+
+configuration:
+  - Debug
+  - Release
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.cs
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+
+clone_folder: c:\projects\CustomActionFastMsi
+
+artifacts:
+  - path: CustomActionFastMsi\bin
+    name: Binaries
+    type: zip
+
+deploy:
+  provider: GitHub
+  artifact: CustomActionFastMsi\bin
+  auth_token:
+    secure: G+598xUH69Q0aWKWUU/Q2juXBusyRdrBSarvw+UALpJJPTvmv97LN4/qT+9I2ha3
+  on:
+    branch: master
+    appveyor_repo_tag: true
