@@ -24,9 +24,10 @@ artifacts:
 
 deploy:
   provider: GitHub
-  artifact: CustomActionFastMsi.zip
+  artifact: CustomActionFastMsi\CustomActionFastMsi.zip
   auth_token:
     secure: Fuf+0Vu0gan1h6l5WaH66HQm/OEF1O1HyeBr4zLqbQcNLkeNWuQun1g47O5yhYwj
   on:
     branch: master
+    configuration: release
     appveyor_repo_tag: true
