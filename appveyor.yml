@@ -16,3 +16,11 @@ assembly_info:
   assembly_file_version: '{version}'
 
 clone_folder: c:\projects\CustomActionFastMsi
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: G+598xUH69Q0aWKWUU/Q2juXBusyRdrBSarvw+UALpJJPTvmv97LN4/qT+9I2ha3
+  on:
+    branch: master
+    appveyor_repo_tag: true
