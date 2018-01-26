@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+﻿using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Deployment.WindowsInstaller;
-using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.Core;
+using System.Diagnostics;
+using System.IO;
 
 namespace CustomActionFastMsi
 {
@@ -36,11 +33,19 @@ namespace CustomActionFastMsi
 
             var fastzip = new FastZip();
 
+            // Force zip library to use codepage 437 (IBM PC US) rather than autodetecting the system codepage.
+            // ref: http://community.sharpdevelop.net/forums/t/19065.aspx
+            // ref: https://stackoverflow.com/questions/46950386/sharpziplib-1-is-not-a-supported-code-page
+            ZipConstants.DefaultCodePage = 437;
+
             session.Log("Starting extraction");
 
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             fastzip.ExtractZip(zipFile, Path.Combine(targetDir, appName), null);
+            stopWatch.Stop();
 
-            session.Log("Finished extraction");
+            session.Log(string.Format("Finished extraction (time taken: {0} ms)", stopWatch.ElapsedMilliseconds));
 
             File.Delete(zipFile);
 
