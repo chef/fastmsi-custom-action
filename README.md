@@ -59,7 +59,7 @@ Then, add the custom action into the install sequence:
 
 ```shell
 <InstallExecuteSequence>
-  <Custom Action="FastUnzip" After="InstallFiles">NOT Installed</Custom>
+  <Custom Action="FastUnzip" After="InstallFiles">NOT Installed or REINSTALL</Custom>
 </InstallExecuteSequence>
 ```
 
