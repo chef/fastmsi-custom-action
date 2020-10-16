@@ -3,7 +3,7 @@ Custom Action for Fast MSI
 [![Build status](https://ci.appveyor.com/api/projects/status/6s8r7jita3oaks6c?svg=true)](https://ci.appveyor.com/project/chef/fastmsi-custom-action)
 
 This repository contains a WIX/MSI Custom Action that supports the Chef and
-ChefDK Omnibus 'FastMSI' packager for Windows.
+Chef Workstation Omnibus 'FastMSI' packager for Windows.
 
 The FastMSI packager speeds up installs by creating a zip archive that is
 simply unarchived to lay down the destination folder structure on install.
@@ -11,9 +11,9 @@ simply unarchived to lay down the destination folder structure on install.
 Acknowledgement
 ---------------
 
-This custom action depends on the SharpZipLip library to do the unzip.
+This custom action depends on 7zip to do the unzip.
 
-Please see https://icsharpcode.github.io/SharpZipLib/ for more info.
+Please see https://www.7-zip.org/ for more info.
 
 Usage
 -----

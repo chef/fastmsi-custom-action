@@ -1,15 +1,18 @@
-﻿using ICSharpCode.SharpZipLib.Zip;
-using Microsoft.Deployment.WindowsInstaller;
+﻿using Microsoft.Deployment.WindowsInstaller;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace CustomActionFastMsi
 {
     public class CustomActions
     {
+        private static Session mySession = null;
+
         [CustomAction]
         public static ActionResult FastUnzip(Session session)
         {
+            mySession = session;
             session.Log("Starting FastUnzip");
 
             string targetDir = session.CustomActionData["FASTZIPDIR"];
@@ -31,19 +34,31 @@ namespace CustomActionFastMsi
                 return ActionResult.NotExecuted;
             }
 
-            var fastzip = new FastZip();
+            var proc = new Process();
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.FileName = "7z.exe";
+            proc.StartInfo.Arguments = string.Format("x {0} -aoa -o\"{1}\"", zipFile, Path.Combine(targetDir, appName));
+            proc.EnableRaisingEvents = true;
+            proc.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+            proc.ErrorDataReceived += new DataReceivedEventHandler(ErrorHandler);
 
-            // Force zip library to use codepage 437 (IBM PC US) rather than autodetecting the system codepage.
-            // ref: http://community.sharpdevelop.net/forums/t/19065.aspx
-            // ref: https://stackoverflow.com/questions/46950386/sharpziplib-1-is-not-a-supported-code-page
-            ZipConstants.DefaultCodePage = 437;
-
-            session.Log("Starting extraction");
+            session.Log("Starting 7zip extraction using arguments: " + proc.StartInfo.Arguments);
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            fastzip.ExtractZip(zipFile, Path.Combine(targetDir, appName), null);
+            proc.Start();
+            proc.BeginErrorReadLine();
+            proc.BeginOutputReadLine();
+            proc.WaitForExit();
             stopWatch.Stop();
+
+            if (proc.ExitCode != 0) {
+                session.Log(string.Format("7zip exited {0}", proc.ExitCode));
+                return ActionResult.Failure;
+            }
 
             session.Log(string.Format("Finished extraction (time taken: {0} ms)", stopWatch.ElapsedMilliseconds));
 
@@ -52,6 +67,22 @@ namespace CustomActionFastMsi
             session.Log("Deleted zip file");
 
             return ActionResult.Success;
+        }
+
+        private static void OutputHandler(object sender, DataReceivedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                mySession.Log(e.Data);
+            }
+        }
+
+        private static void ErrorHandler(object sender, DataReceivedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                mySession.Log(e.Data);
+            }
         }
     }
 }
