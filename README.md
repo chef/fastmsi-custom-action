@@ -1,7 +1,5 @@
 Custom Action for Fast MSI
 ============================
-[![Build status](https://ci.appveyor.com/api/projects/status/6s8r7jita3oaks6c?svg=true)](https://ci.appveyor.com/project/chef/fastmsi-custom-action)
-
 This repository contains a WIX/MSI Custom Action that supports the Chef and
 Chef Workstation Omnibus 'FastMSI' packager for Windows.
 
@@ -19,17 +17,9 @@ Usage
 -----
 ### Build
 
-The root directory contains a Visual Studio 2015 solution file that
-can be used for building the custom action.
+Habitat should be used to build the custom action binary. Running the `build` command inside of a Habitat Studio, will pull down all necessary build dependencies.
 
-The project targets .Net Framework 2.0 in order to be compatible with
-legacy Windows.
-
-The WIX toolset must be installed on the machine in order to build. The
-recommended version is 3.10 or greater.
-
-The build will produce a ```CustomActionFastMsi.CA.dll``` which will need
-to be packaged into the MSI by the WIX tools (see below).
+The built Habitat package will include a ```CustomActionFastMsi.CA.dll``` in its `bin` directory which will need to be packaged into the MSI by the WIX tools (see below).
 
 ### WIX Integration
 
@@ -59,7 +49,7 @@ Then, add the custom action into the install sequence:
 
 ```shell
 <InstallExecuteSequence>
-  <Custom Action="FastUnzip" After="InstallFiles">NOT Installed</Custom>
+  <Custom Action="FastUnzip" After="InstallFiles">NOT Installed or REINSTALL</Custom>
 </InstallExecuteSequence>
 ```
 
