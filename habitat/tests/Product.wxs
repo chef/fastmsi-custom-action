@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="SetupProject1" Language="1033" Version="1.0.0.0" Manufacturer="test" UpgradeCode="ad27ee0c-bda5-4677-b49c-2cca3db55a06">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <Media Id="1" Cabinet="test.cab" EmbedCab="yes" CompressionLevel="high" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <Feature Id="ProductFeature" Title="SetupProject1" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentGroupRef Id="ProjectDir" />
+		</Feature>
+
+    <SetProperty Id="FastUnzip"
+                 Value="FASTZIPDIR=[INSTALLLOCATION];FASTZIPAPPNAME=test"
+                 Sequence="execute"
+                 Before="FastUnzip" />
+
+    <CustomAction Id="FastUnzip"
+                  BinaryKey="CustomActionFastMsiDLL"
+                  DllEntry="FastUnzip"
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="check" />
+
+    <Binary Id="CustomActionFastMsiDLL"
+            SourceFile="CustomActionFastMsi.CA.dll" />
+
+    <InstallExecuteSequence>
+      <Custom Action="FastUnzip" After="InstallFiles">NOT Installed OR REINSTALL</Custom>
+    </InstallExecuteSequence>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ROOT">
+        <Directory Id="INSTALLLOCATION" Name="SetupProject1" />
+      </Directory>
+    </Directory>
+    <SetDirectory Id="ROOT" Value="[WindowsVolume]"/>
+  </Product>
+</Wix>
