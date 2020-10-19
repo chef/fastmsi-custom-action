@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLLOCATION">
+            <Component Id="cmpED829CDDBE3CD1BF0135CA48F005B5C2" Guid="{0A464B70-BF1B-4C05-AEE4-AF31CB13093A}">
+                <File Id="fil9D5AED5C118072768FFDDEF30FC5D729" KeyPath="yes" Source="SourceDir\test.zip" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ProjectDir">
+            <ComponentRef Id="cmpED829CDDBE3CD1BF0135CA48F005B5C2" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>
