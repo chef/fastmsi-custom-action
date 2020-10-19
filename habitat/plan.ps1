@@ -31,4 +31,7 @@ function Invoke-Install {
     $fileList += "$HAB_CACHE_SRC_PATH\$pkg_dirname\CustomActionFastMsi\bin\Release\$_;"
   }
   ."$(Get-HabPackagePath wix)\bin\sdk\MakeSfxCA.exe" "$pkg_prefix/bin/CustomActionFastMsi.CA.dll" "$(Get-HabPackagePath wix)\bin\sdk\x86\sfxca.dll" "$HAB_CACHE_SRC_PATH\$pkg_dirname\CustomActionFastMsi\bin\Release\CustomActionFastMsi.dll" $fileList
+  if($LASTEXITCODE -ne 0) {
+    Write-Error "failed packing custom action binary!"
+  }
 }
