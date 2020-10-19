@@ -11,7 +11,7 @@ steps:
 
 - label: ":windows: CustomActionFastMsi"
   commands:
-    - .expeditor/test_plan.ps1 -Plan .
+    - .expeditor/test_plan.ps1 -Plan habitat
   expeditor:
     executor:
       docker:
