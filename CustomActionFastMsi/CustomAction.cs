@@ -42,7 +42,7 @@ namespace CustomActionFastMsi
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.FileName = Path.Combine(assemblyFolder , "7z.exe");
-            proc.StartInfo.Arguments = string.Format("x {0} -aoa -o\"{1}\"", zipFile, Path.Combine(targetDir, appName));
+            proc.StartInfo.Arguments = string.Format("x \"{0}\" -aoa -o\"{1}\"", zipFile, Path.Combine(targetDir, appName));
             proc.EnableRaisingEvents = true;
             proc.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
             proc.ErrorDataReceived += new DataReceivedEventHandler(ErrorHandler);
