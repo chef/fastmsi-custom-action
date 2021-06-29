@@ -15,18 +15,10 @@ pipelines:
 
 staging_areas:
   - post_merge:
-      workload: pull_request_merged:{{agent_id}}:*
+      workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
 
-promote:
-  channels:
-    - stable
-
-# These actions are taken, in order they are specified, anytime a Pull Request is merged.
-merge_actions:
-  - trigger_pipeline:habitat/build:
-      ignore_labels:
-        - "Expeditor: Skip Habitat"
-        - "Expeditor: Skip All"
+artifact_channels:
+  - stable
 
 subscriptions:
   - workload: staged_workload_released:{{agent_id}}:post_merge:*
@@ -35,3 +27,10 @@ subscriptions:
   - workload: buildkite_hab_build_group_published:{{agent_id}}:*
     actions:
       - built_in:promote_habitat_packages
+  # These actions are taken, in order they are specified, anytime a Pull Request is merged.
+  - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
+    actions:
+      - trigger_pipeline:habitat/build:
+          ignore_labels:
+            - "Expeditor: Skip Habitat"
+            - "Expeditor: Skip All"
