@@ -19,6 +19,7 @@ namespace CustomActionFastMsi
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string targetDir = session.CustomActionData["FASTZIPDIR"];
             string appName = session.CustomActionData["FASTZIPAPPNAME"];
+            string zipName = session.CustomActionData["FASTZIPNAME"];
 
             session.Log("FASTZIPDIR = " + targetDir);
             session.Log("FASTZIPAPPNAME = " + appName);
@@ -30,6 +31,11 @@ namespace CustomActionFastMsi
             }
 
             string zipFile = Path.Combine(targetDir, appName + ".zip");
+            if (zipName != null)
+            {
+                session.Log("FASTZIPNAME = " + zipName);
+                zipFile = Path.Combine(targetDir, zipName + ".zip");
+            }
             if (!File.Exists(zipFile))
             {
                 session.Log("Zip file does not exist - ignoring");
