@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Custom Action for Chef Installers")]
 [assembly: AssemblyCompany("Chef Inc.")]
 [assembly: AssemblyProduct("CustomActionFastMsi")]
-[assembly: AssemblyCopyright("Copyright © Chef Inc. 2015")]
+[assembly: AssemblyCopyright("Copyright (c) 2015-2022 Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
